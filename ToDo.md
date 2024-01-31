@@ -9,5 +9,8 @@
 
 # Further work
 - Write deep memory training data. We need X number of question and dataset title pairs. The questions should be something like "How has the average life expectancy in Finland changed for men and woman since 2000?" title should be something like "Life expectancy by country, gender and year". Note: The titles MUST be real titles from our collection.
+- Training data should be split into 2 parts. One for training and one for testing. The testing data should be used to evaluate the performance of the model.
 
 - Make a template allowing users to easily connect their own deeplake instance to a GPT
+- Make a prettier version of the workflow diagram (https://app.diagrams.net/)
+- Make a diagram showcasing the improved performance of the GPT when using Deep Memory

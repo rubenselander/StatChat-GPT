@@ -1,0 +1,15 @@
+Flask
+gunicorn
+requests
+ipykernel
+pandas
+deeplake
+pyjstat
+eurostat
+sdmx1
+PySocks
+openai
+python-dotenv
+google.generativeai
+cohere
+rdflib

@@ -9,9 +9,6 @@ file_path = "data/processed_tables/processed_tables.json"
 # vector_store_path = f"hub://rubenselander/{title}"
 
 
-os.environ[
-    "ACTIVELOOP_TOKEN"
-] = "eyJhbGciOiJIUzUxMiIsImlhdCI6MTY5NzgzMjY2MiwiZXhwIjoxNzYwOTkxMDQ0fQ.eyJpZCI6InJ1YmVuc2VsYW5kZXIifQ.y1fg-LbYELU_nY4KCuRKPqZJshvw-oUnK7fNyLQw4s6CZHdSjayn8uQ03nJGKn2oh-PFn8PORqSPLwkX82ePNQ"
 vector_store_path = "hub://rubenselander/tensor_tables"
 
 
@@ -19,7 +16,10 @@ def embedding_function(texts, model="text-embedding-ada-002"):
     if isinstance(texts, str):
         texts = [texts]
     texts = [t.replace("\n", " ") for t in texts]
-    return [data["embedding"] for data in openai.Embedding.create(input=texts, model=model)["data"]]
+    return [
+        data["embedding"]
+        for data in openai.Embedding.create(input=texts, model=model)["data"]
+    ]
 
 
 with open(file_path, "r", encoding="utf-8") as f:

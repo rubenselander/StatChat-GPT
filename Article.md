@@ -1,14 +1,10 @@
-# Building a Statistical Research GPT with DeepLake and Eurostat
+# StatChat: Building a Statistical Research GPT with DeepLake and Eurostat
+Open data is great but it can be hard to find the data you need. Eurostat is the statistical office of the European Union and provides a lot of open, reliable data. However, finding the data you need can be a challenge. This is especially true if you don't have experience with finding and interacting with statistical databases. This is where our GPT comes in. It not only finds the data we need but also presents it in a way that is easy to understand and use. 
 
-
-## Introduction
-Open data is great but it can be hard to find the data you need. Eurostat is the statistical office of the European Union and provides a lot of open, reliable data. However, finding the data you need can be a challenge. This is especially true if you don't have experience with finding and interacting with statistical databases.
-This is where our GPT comes in. It not only finds the data we need but also presents it in a way that is easy to understand and use. 
-
-# Why not just use ChatGPT? 
+## Why not just use ChatGPT? 
 Well, ChatGPT is great at answering questions but say you want to know something like "How has France's CO2 emissions changed since 1990?" or "Does life expectancy in the EU correlate with GDP per capita?", these are questions that require data to answer and are also not findable through a simple google search.
 
-# Why not another vector store?
+## Why not another vector store?
 1. Deeplake is open source
 2. Deeplake offers "Deep Memory" which will greatly improve the search performance and our GPTs ability to find relevant datasets.
 <!-- - Define Deep Memory -->

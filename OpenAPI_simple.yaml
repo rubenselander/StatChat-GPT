@@ -46,11 +46,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/SearchResults'
 
-  /get_query_instructions:
+  /get_table_variables:
     post:
-      operationId: getQueryInstructions
-      summary: Get Query Schema
-      description: Gets the query schema for a table in Eurostat.
+      operationId: getTableVariables
+      summary: Get Table Variables
+      description: Gets the variables for a table in Eurostat.
       requestBody:
         required: true
         content:
@@ -65,21 +65,25 @@ paths:
                 - table_code
       responses:
         200:
-          description: Query schema for the table
+          description: Variables for the table
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/QuerySchema'
+                $ref: '#/components/schemas/TableVariables'
 
   /get_data:
     post:
       operationId: getData
       summary: Get Data for Table
-      description: Gets the data for a table in Eurostat based on the query parameters.
+      description: >
+        Gets the data for a table in Eurostat based on the query parameters. 
+        The query is a JSON object where keys are variable IDs/codes as provided by 
+        the `get_table_variables` endpoint. Each key maps to a list of value codes/IDs 
+        for the respective variable. Use '*' to retrieve all values for a variable.
       requestBody:
         required: true
         content:
-          application/x-www-form-urlencoded:
+          application/json:
             schema:
               type: object
               properties:
@@ -87,18 +91,25 @@ paths:
                   type: string
                   description: Code of the Eurostat table.
                 query:
-                  type: string
-                  description: JSON object containing parameters for the query.
+                  type: object
+                  description: >
+                    JSON object containing parameters for the query. 
+                    The keys are variable IDs/codes corresponding to those provided 
+                    by the `get_table_variables` endpoint.
+                  additionalProperties:
+                    type: array
+                    items:
+                      type: string
               required:
                 - table_code
-                - query
       responses:
         200:
-          description: Data for the specified table
+          description: CSV data for the specified table
           content:
-            application/json:
+            text/csv:
               schema:
-                $ref: '#/components/schemas/TableData'
+                type: string
+                description: CSV formatted string. The first row contains column headers (variables).
 
 components:
   schemas:
@@ -122,18 +133,25 @@ components:
         date_end:
           type: integer
 
-    QuerySchema:
+    TableVariables:
       type: object
-      description: Schema describing query instructions for a table.
+      description: Variables available for a specific table.
       properties:
-        example_property:
-          type: string
-          description: An example property of the query schema.
+        variable_name:
+          type: object
+          description: The structure of each variable.
+          additionalProperties: 
+            type: object
+            properties:
+              text:
+                type: string
+              values:
+                type: object
+                additionalProperties:
+                  type: string
 
     TableData:
-      type: object
-      description: Data retrieved for a specific table.
-      properties:
-        example_property:
-          type: string
-          description: An example property of the table data.
+      type: string
+      description: >
+        A string representing CSV formatted data. The first row of the CSV 
+        contains the column headers, which correspond to the variables from the query.

@@ -25,6 +25,7 @@ def embedding_function(texts, model="text-embedding-ada-002"):
 with open(file_path, "r", encoding="utf-8") as f:
     tables = json.load(f)
 
+
 titles = [t["title"] for t in tables]
 metadatas = []
 for t in tables:

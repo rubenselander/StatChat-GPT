@@ -8,6 +8,6 @@
 - DEMO IS SHOULD NOW BE READY TO GO!
 
 # Further work
-- Write deep memory training data. We need X number of question and dataset title pairs. The question should be something like "How has the average life expectancy in Finland changed for men and woman since 2000?" title should be something like "Life expectancy by country, gender and year". Note: The titles MUST be real titles from our collection.
+- Write deep memory training data. We need X number of question and dataset title pairs. The questions should be something like "How has the average life expectancy in Finland changed for men and woman since 2000?" title should be something like "Life expectancy by country, gender and year". Note: The titles MUST be real titles from our collection.
 
-- Make a template allowing 
+- Make a template allowing users to easily connect their own deeplake instance to a GPT

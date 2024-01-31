@@ -1,0 +1,128 @@
+openapi: 3.0.0
+info:
+  title: Statistical Data API
+  version: 2.0.0
+paths:
+  /search_for_tables:
+    get:
+      summary: Search the collection of statistical API databases.
+      operationId: search_for_tables
+      parameters:
+        - in: query
+          name: search_query
+          schema:
+            type: string
+          required: true
+          description: A detailed description of the statistical data you're looking for.
+    responses:
+      '200':
+        description: Successful response with paginated data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/TableData'
+                pagination:
+                  $ref: '#/components/schemas/Pagination'
+
+/get_query_instructions:
+  get:
+    summary: Obtain instructions on to construct a query for data retrieval from the specific table specified by the api_url parameter.
+    operationId: get_query_instructions
+    parameters:
+      - in: query
+        name: api_url
+        schema:
+          type: string
+        required: true
+        description: The API URL obtained from the 'search_for_tables' function.
+    responses:
+      '200':
+        description: Successful response with dynamic query construction instructions
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                example_queries:
+                  type: array
+                  items:
+                    type: string
+                query_schema:
+                  type: object
+                  description: |
+                    This schema defines the standard format for query parameters. 
+                    Each query is an array of objects, with each object representing a selection criterion.
+                    The 'code' property specifies a particular data dimension or category,
+                    while the 'values' property is an array of strings representing the selection for that dimension.
+                  properties:
+                    query:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          code:
+                            type: string
+                          values:
+                            type: array
+                            items:
+                              type: string
+                      description: An array of objects, each representing a selection criterion for the data query.
+  /get_data:
+    post:
+      summary: Retrieve data from a table using a constructed query.
+      operationId: get_data
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                api_url:
+                  type: string
+                  description: The API URL of the table, found using 'search_for_tables'.
+                query:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                      values:
+                        type: array
+                        items:
+                          type: string
+                  description: An array of objects, each representing a selection criterion for the data query. The 'code' specifies a data dimension or category, and 'values' are the selected options for that dimension.
+      responses:
+        '200':
+          description: Successful data retrieval
+          content:
+            application/json:
+              schema:
+                type: object
+                # Define the response schema here
+   
+# $ref: '#/components/schemas/QueryInstructions'
+components:
+  schemas:
+    TableData:
+      type: object
+      properties:
+        title:
+          type: string
+        columns:
+          type: array
+          items:
+            type: string
+        #time_range isn't always present in the response (ca. 5% tables don't have a time variable)
+        time_range:
+          type: string
+        url:
+          type: string

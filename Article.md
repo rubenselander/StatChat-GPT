@@ -15,10 +15,12 @@ Well, ChatGPT is great at answering questions but say you want to know something
 <!-- Personal reasons: -->
 3. Local development and usage is serverless making it so much easier and faster to both develop and use in your projects.  
 4. Going from local, serverless, to a fully hosted solution literally takes 1 line of code. Maybe 2 if you want to be exact.
-'''python
+
+```python
 from deeplake import deepcopy
-deepcopy(src=<path to local deeplake>, dest=<path to new hosted instance>)
-'''
+deepcopy(src="<path to local deeplake>", dest="<path to new hosted instance>")
+# That's it!
+```
 5. Simple and easy to use. Well documented and active community.
 6. I've literally never interacted with a more accessible and helpful developer team than the one behind deeplake, ActiveLoop.
 

@@ -35,10 +35,7 @@ paths:
               properties:
                 user_question:
                   type: string
-                  description: User's question for searching tables.
-                year:
-                  type: integer
-                  description: Year to filter the results.
+                  description: The question the user is asking.
               required:
                 - user_question
       responses:
@@ -120,23 +117,10 @@ components:
           type: string
         title:
           type: string
-        source:
-          type: string
         date_start:
           type: integer
         date_end:
           type: integer
-        variables:
-          type: object
-          additionalProperties:
-            type: object
-            properties:
-              text:
-                type: string
-              values:
-                type: object
-                additionalProperties:
-                  type: string
 
     QuerySchema:
       type: object

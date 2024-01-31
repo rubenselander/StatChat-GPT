@@ -68,17 +68,6 @@ def load_jsonl(file_path):
     return output
 
 
-def create_vector_store(name: str, tensor_params: list[dict]) -> VectorStore:
-    vector_store = VectorStore(
-        path=f"hub://rubenselander/{name}",
-        runtime={"tensor_db": True},
-        ingestion_batch_size=92,
-        tensor_params=tensor_params,
-        overwrite=True,
-    )
-    return vector_store
-
-
 def main():
     vector_store = VectorStore(
         path=f"hub://{ORG_NAME}/{VECTOR_STORE_NAME}",

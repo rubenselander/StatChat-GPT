@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify
-from scripts.api_search import search_eurostat, get_query_schema, get_data
+from scripts.api_search import search_eurostat
 
 app = Flask(__name__)
 
@@ -7,6 +7,16 @@ app = Flask(__name__)
 @app.route("/privacy")
 def index():
     return render_template("privacy.html")
+
+
+def get_query_schema(dataset_code: str) -> dict:
+    """Gets the query schema for a given dataset."""
+    return {}
+
+
+def get_data(dataset_code: str, query: dict, response_format: str = "json") -> dict:
+    """Gets the data from a table based on the given query."""
+    return {}
 
 
 # post parameters:

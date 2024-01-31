@@ -26,6 +26,7 @@ logging.basicConfig(
 DATASET_CODES_URL = "https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/dataflow/all?format=JSON&compressed=true"
 BASE_URL = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/DATASET_CODE?format=JSON&lang=EN&sinceTimePeriod=2025"
 JSONL_SAVE_PATH = "eurostat.jsonl"
+# test url: "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/SDG_14_50?format=JSON&lang=EN&compressed=true"
 
 
 def load_jsonl(file_path):

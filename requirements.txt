@@ -6,8 +6,8 @@ pandas
 deeplake
 pyjstat
 eurostat
+sdmx1
 openai
 python-dotenv
 google.generativeai
 cohere
-

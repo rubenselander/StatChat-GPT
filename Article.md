@@ -1,4 +1,8 @@
 # StatChat: Building a Statistical Research GPT with DeepLake and Eurostat
+In this article we will show you how to build a GPT that can answer statistical questions using DeepLake and Eurostat. We will also show you how to improve the performance of the GPT by using Deep Memory.
+
+
+
 Open data is great but it can be hard to find the data you need. Eurostat is the statistical office of the European Union and provides a lot of open, reliable data. However, finding the data you need can be a challenge. This is especially true if you don't have experience with finding and interacting with statistical databases. This is where our GPT comes in. It not only finds the data we need but also presents it in a way that is easy to understand and use. 
 
 ## Why not just use ChatGPT? 

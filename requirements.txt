@@ -11,3 +11,4 @@ openai
 python-dotenv
 google.generativeai
 cohere
+jsonschema

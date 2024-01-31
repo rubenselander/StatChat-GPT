@@ -30,7 +30,9 @@ async def cohere_embedding_function(texts, model="embed-multilingual-v3.0"):
     if isinstance(texts, str):
         texts = [texts]
     async with AsyncClient(api_key=os.getenv("COHERE_API_KEY")) as co:
-        response = await co.embed(texts, model=model, input_type="search_query", truncate="END")
+        response = await co.embed(
+            texts, model=model, input_type="search_query", truncate="END"
+        )
     return response.embeddings
 
 
@@ -44,7 +46,10 @@ async def search_tables(search_string: str, k: int = 10):
 async def rerank_tables(query: str, search_results: dict, k: int = 10):
     async with AsyncClient() as co:
         rerank_docs = await co.rerank(
-            query=query, documents=search_results, top_n=k, model="rerank-multilingual-v2.0"
+            query=query,
+            documents=search_results,
+            top_n=k,
+            model="rerank-multilingual-v2.0",
         )
     return rerank_docs
 
@@ -53,7 +58,9 @@ async def get_time_range_text(table: dict):
     """Get the time range text for a table."""
     for variable in table["variables"]:
         if variable["type"] == "time":
-            return f"""Time period: {variable["values"][0]} - {variable["values"][-1]}."""
+            return (
+                f"""Time period: {variable["values"][0]} - {variable["values"][-1]}."""
+            )
     return ""
 
 
@@ -64,7 +71,10 @@ async def get_rerank_docs(results: list):
         time_range_text = await get_time_range_text(table)
         columns = f'\nColumns:{table["columns"]}\n'
         docs.append(
-            {"text": f"""{table["title"]}{columns}{time_range_text}""", "index": results.index(table)}
+            {
+                "text": f"""{table["title"]}{columns}{time_range_text}""",
+                "index": results.index(table),
+            }
         )
     return docs
 
@@ -74,7 +84,10 @@ async def process_search_results(search_string, results: dict, k: int):
     rerank_docs = await get_rerank_docs(results)
     async with AsyncClient(api_key=os.getenv("COHERE_API_KEY")) as co:
         reranked_results = await co.rerank(
-            query=search_string, documents=rerank_docs, top_n=k, model="rerank-multilingual-v2.0"
+            query=search_string,
+            documents=rerank_docs,
+            top_n=k,
+            model="rerank-multilingual-v2.0",
         )
 
     reranked_results = [
@@ -93,7 +106,9 @@ async def process_search_results(search_string, results: dict, k: int):
 async def api_search(search_string: str, output_num: int = 10, rerank_num: int = 30):
     """Performs a statistical search asynchronously, optionally converting search string to a title."""
     search_results = await search_tables(search_string, k=rerank_num)
-    search_results = await process_search_results(search_string, search_results, k=output_num)
+    search_results = await process_search_results(
+        search_string, search_results, k=output_num
+    )
 
     url_info_dict = {}
     function_output = []
@@ -181,3 +196,18 @@ def api_search_sync(search_string: str, output_num: int = 10, rerank_num: int = 
 
 # if __name__ == "__main__":
 #     __main__()
+
+
+def search_eurostat(search_string: str, year: int = None) -> list[dict]:
+    """Performs a search in Eurostat based on the given search string."""
+    return []
+
+
+def get_query_schema(dataset_code: str) -> dict:
+    """Gets the query schema for a given dataset."""
+    return {}
+
+
+def get_data(dataset_code: str, query: dict, response_format: str = "json") -> dict:
+    """Gets the data from a table based on the given query."""
+    return {}

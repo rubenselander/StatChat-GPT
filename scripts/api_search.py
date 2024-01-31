@@ -43,53 +43,53 @@ def search_tables(search_string: str, k: int = 10):
     return results
 
 
-def rerank_tables(query: str, search_results: dict, k: int = 10):
-    rerank_docs = co.rerank(
-        query=query,
-        documents=search_results,
-        top_n=k,
-        model="rerank-multilingual-v2.0",
-    )
-    return rerank_docs
+# def rerank_tables(query: str, search_results: dict, k: int = 10):
+#     rerank_docs = co.rerank(
+#         query=query,
+#         documents=search_results,
+#         top_n=k,
+#         model="rerank-multilingual-v2.0",
+#     )
+#     return rerank_docs
 
 
-def get_rerank_docs(results: list):
-    """Get the documents to be used for the rerank operation."""
-    docs = []
-    # for table in results:
-    #     time_range_text = await get_time_range_text(table)
-    #     columns = f'\nColumns:{table["columns"]}\n'
-    #     docs.append(
-    #         {
-    #             "text": f"""{table["title"]}{columns}{time_range_text}""",
-    #             "index": results.index(table),
-    #         }
-    #     )
-    return docs
+# def get_rerank_docs(results: list):
+#     """Get the documents to be used for the rerank operation."""
+#     docs = []
+#     for table in results:
+#         time_range_text = await get_time_range_text(table)
+#         columns = f'\nColumns:{table["columns"]}\n'
+#         docs.append(
+#             {
+#                 "text": f"""{table["title"]}{columns}{time_range_text}""",
+#                 "index": results.index(table),
+#             }
+#         )
+#     return docs
 
 
-def process_search_results(search_string, results: dict, k: int):
-    """Processes and rerank the results of the search operation."""
-    rerank_docs = get_rerank_docs(results)
+# def process_search_results(search_string, results: dict, k: int):
+#     """Processes and rerank the results of the search operation."""
+#     rerank_docs = get_rerank_docs(results)
 
-    reranked_results = co.rerank(
-        query=search_string,
-        documents=rerank_docs,
-        top_n=k,
-        model="rerank-multilingual-v2.0",
-    )
+#     reranked_results = co.rerank(
+#         query=search_string,
+#         documents=rerank_docs,
+#         top_n=k,
+#         model="rerank-multilingual-v2.0",
+#     )
 
-    reranked_results = [
-        {"text": doc.document, "score": doc.relevance_score, "index": doc.index}
-        for doc in reranked_results.results
-    ]
+#     reranked_results = [
+#         {"text": doc.document, "score": doc.relevance_score, "index": doc.index}
+#         for doc in reranked_results.results
+#     ]
 
-    new_results = []
-    for doc in reranked_results:
-        results[doc["index"]]["score"] = doc["score"]
-        new_results.append(results[doc["index"]])
+#     new_results = []
+#     for doc in reranked_results:
+#         results[doc["index"]]["score"] = doc["score"]
+#         new_results.append(results[doc["index"]])
 
-    return new_results
+#     return new_results
 
 
 def search_eurostat(search_string: str, year: int = None, k=10) -> dict:

@@ -1,0 +1,155 @@
+openapi: 3.0.0
+info:
+  title: Eurostat Data API
+  description: API for searching and retrieving data from Eurostat
+  version: 1.0.0
+
+servers:
+  - url: https://statchat-nlzq.onrender.com
+
+paths:
+  /privacy:
+    get:
+      operationId: getPrivacyPolicy
+      summary: Privacy Policy
+      description: Returns the privacy policy page.
+      responses:
+        200:
+          description: Privacy policy page
+          content:
+            text/html:
+              schema:
+                type: string
+
+  /search_for_tables:
+    post:
+      operationId: searchForTables
+      summary: Search Eurostat Tables
+      description: Searches for tables in Eurostat that match the user's question.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                user_question:
+                  type: string
+                  description: User's question for searching tables.
+                year:
+                  type: integer
+                  description: Year to filter the results.
+              required:
+                - user_question
+      responses:
+        200:
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResults'
+
+  /get_query_instructions:
+    post:
+      operationId: getQueryInstructions
+      summary: Get Query Schema
+      description: Gets the query schema for a table in Eurostat.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                table_code:
+                  type: string
+                  description: Code of the Eurostat table.
+              required:
+                - table_code
+      responses:
+        200:
+          description: Query schema for the table
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuerySchema'
+
+  /get_data:
+    post:
+      operationId: getData
+      summary: Get Data for Table
+      description: Gets the data for a table in Eurostat based on the query parameters.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                table_code:
+                  type: string
+                  description: Code of the Eurostat table.
+                query:
+                  type: string
+                  description: JSON object containing parameters for the query.
+              required:
+                - table_code
+                - query
+      responses:
+        200:
+          description: Data for the specified table
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TableData'
+
+components:
+  schemas:
+    SearchResults:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchResult'
+
+    SearchResult:
+      type: object
+      properties:
+        code:
+          type: string
+        title:
+          type: string
+        source:
+          type: string
+        date_start:
+          type: integer
+        date_end:
+          type: integer
+        variables:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              text:
+                type: string
+              values:
+                type: object
+                additionalProperties:
+                  type: string
+
+    QuerySchema:
+      type: object
+      description: Schema describing query instructions for a table.
+      properties:
+        example_property:
+          type: string
+          description: An example property of the query schema.
+
+    TableData:
+      type: object
+      description: Data retrieved for a specific table.
+      properties:
+        example_property:
+          type: string
+          description: An example property of the table data.

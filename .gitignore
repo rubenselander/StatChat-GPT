@@ -177,3 +177,5 @@ eurostat.json
 search_test.json
 variables_test.json
 temp.md
+api_test.py
+api_test.ipynb

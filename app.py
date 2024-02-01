@@ -15,12 +15,17 @@ def index():
 # Description: searches for tables in Eurostat that match the user's question.
 @app.route("/search_for_tables", methods=["POST"])
 def search():
-    search_string = request.form["user_question"]
+    data = request.get_json()
+    search_string = data["user_question"]
     # get the optional "year" parameter if it exists
-    year = request.form.get("year", None)
+    # year = request.form.get("year", None)
 
-    search_results = search_eurostat(search_string, year=year)
+    search_results = search_eurostat(search_string)
     return jsonify(search_results)
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
 
 
 # post parameters:
@@ -31,7 +36,8 @@ def search():
 # The table_code parameter is the same as the "code" field in the search results.
 @app.route("/get_table_variables", methods=["POST"])
 def get_schema():
-    code = request.form["table_code"]
+    data = request.get_json()
+    code = data["table_code"]
     variables = get_variables(code)
     return jsonify(variables)
 
@@ -45,10 +51,7 @@ def get_schema():
 # The query parameter is a JSON object that contains the parameters for the query.
 @app.route("/get_table_data", methods=["POST"])
 def get_table_data():
-    dataset_code = request.form["table_code"]
-    query = request.form["query"]
+    data = request.get_json()
+    dataset_code = data["table_code"]
+    query = data["query"]
     return jsonify(get_data(dataset_code, query))
-
-
-if __name__ == "__main__":
-    app.run(debug=True)

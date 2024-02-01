@@ -1,6 +1,6 @@
 # StatChat: A Statistical Research GPT with DeepLake and Eurostat Integration
 
-StatChat is an innovative GPT-based project designed to showcase new ways we interact with statistical data. By leveraging the power of DeepLake and the Eurostat API, StatChat provides users with an easy-to-use interface to query statistical data and find answers to specific and complex statistical questions that are grounded on reliable and open data. This project also demonstrates the performance improvement of integrating a GPT with a Deeplake vector store and increasing search performance with the use of Deep Memory.
+StatChat is an innovative GPT-based project designed to showcase new ways of interacting with statistical data. Leveraging the power of DeepLake and the Eurostat API, StatChat offers users an easy-to-use interface for querying statistical data and finding answers to specific and complex statistical questions, all grounded in reliable and open data sources. This project also demonstrates the performance improvements gained by integrating a GPT with a DeepLake vector store and enhancing search performance through the use of Deep Memory.
 
 ## Features
 - **Data Querying**: Directly ask statistical questions and receive accurate, data-driven answers.

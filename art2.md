@@ -1,11 +1,12 @@
-# StatChat: Building a Statistical Research GPT with DeepLake and Eurostat
+# Building a Statistical Research GPT with DeepLake and Eurostat
 
 In this article, we aim to construct a GPT capable of answering statistical questions using DeepLake and the Eurostat API. Additionally, we will demonstrate how to enhance the GPT's performance by leveraging Deep Memory and implementing reranking with Cohere.
 
 
 <div style="text-align: center;">
-  <img src="wide_stat_minimalistic.png" alt="Exploring Eurostat" style="max-width: 70%; height: auto; display: block; margin: 0 auto;">
+  <img src="wide_stat_minimalistic.png" alt="Exploring Eurostat" style="max-width: 80%; height: auto; display: block; margin: 0 auto;">
 </div>
+
 
 ## Introduction
 

@@ -1,0 +1,412 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Document Server",
+    "description": "Suports reads and writes for elements of documents.",
+    "version": "v1.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://www.nov95.net/docserve"
+    }
+  ],
+  "paths": {
+    "/docs": {
+
+      "get": {
+        "description": "Get a list of documents.",
+        "operationId": "ListDocs",
+        "x-openai-isConsequential": "false",
+        
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "documents": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "doc_id": {
+                            "$ref": "#/components/schemas/doc_id"
+                          },
+                          "title": {
+                            "type": "string",
+                            "description": "Title for the new document.",
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+
+
+      "post": {
+        "description": "Create a new document.",
+        "operationId": "CreateDoc",
+        "x-openai-isConsequential": "false",
+        
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {              
+                "type": "object",
+                "properties": {
+                  "doc_id": {
+                    "type": "string",
+                    "description": "Unique identifier for the document.",
+                  },
+                  "title": {
+                    "type": "string",
+                    "description": "Title for the new document.",
+                  }
+                }
+              }
+            }
+          }
+        },
+        
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "doc_id": {
+                      "$ref": "#/components/schemas/doc_id"
+                    },
+                    "doc_view_url": {
+                      "type": "string",
+                      "description": "URL for user to view the document"
+                    },
+                    "image_upload_url": {
+                      "type": "string",
+                      "description": "URL for user to upload images to the document"
+                    },
+                    "user_id": {
+                      "type": "string",
+                      "description": "Unique ID for user"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+
+    "/docs/{doc_id}": {
+      "get": {
+        "description": "Read document details.",
+        "operationId": "ReadDoc",
+        "x-openai-isConsequential": "false",
+        "parameters": [
+          {
+            "name": "doc_id",
+            "in": "path",
+            "description": "Unique identifier of document to read.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "doc_id": {
+                      "$ref": "#/components/schemas/doc_id"                      
+                    },
+                    "doc_view_url": {
+                      "type": "string",
+                      "description": "URL for user to view the document"
+                    },
+                    "image_upload_url": {
+                      "type": "string",
+                      "description": "URL for user to upload images to the document"
+                    },
+                    "user_id": {
+                      "type": "string",
+                      "description": "Unique ID for user"
+                    },
+                    "elements": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "index": {
+                            "$ref": "#/components/schemas/element_index"
+                          },
+                          "type": {
+                            "$ref": "#/components/schemas/element_type"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    
+    "/docs/{doc_id}/elements/{type}/{index}": {
+      "get": {
+        "description": "Read an element of a document.",
+        "operationId": "ReadElement",
+        "x-openai-isConsequential": "false",
+        
+        "parameters": [
+          {
+            "name": "doc_id",
+            "in": "path",
+            "description": "Unique identifier of document to read.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "description": "Type of document element to read.",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/element_type"
+            }
+          },
+          {
+            "name": "index",
+            "in": "path",
+            "description": "Index of element to read.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "doc_id": {
+                      "$ref": "#/components/schemas/doc_id"                      
+                    },
+                    "type": {
+                      "$ref": "#/components/schemas/element_type"
+                    },
+                    "index": {
+                      "$ref": "#/components/schemas/element_index"
+                    },
+                    "value": {
+                      "type": "string",
+                      "description": "Value of document element.",
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+
+
+      "put": {
+        "description": "Update an element of a document.",
+        "operationId": "UpdateElement",
+        "x-openai-isConsequential": "false",
+        
+        "parameters": [
+          {
+            "name": "doc_id",
+            "in": "path",
+            "description": "Unique identifier of document to read.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "description": "Type of document element to read.",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/element_type"              
+            }
+          },
+          {
+            "name": "index",
+            "in": "path",
+            "description": "Index of element to read.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {              
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "description": "Value of document element.",
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "doc_id": {
+                      "$ref": "#/components/schemas/doc_id"
+                    },
+                    "type": {
+                      "$ref": "#/components/schemas/element_type"
+                    },
+                    "index": {
+                      "$ref": "#/components/schemas/element_index"
+                    },
+                    "value": {
+                      "type": "string",
+                      "description": "Value of document element.",
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      
+    },
+
+    "/docs/{doc_id}/elements/{type}": {
+      "post": {
+        "description": "Add an element to a document.",
+        "operationId": "AddElement",
+        "x-openai-isConsequential": "false",
+        
+        "parameters": [
+          {
+            "name": "doc_id",
+            "in": "path",
+            "description": "Unique identifier of document to write.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "description": "Type of document element to write.",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/element_type"              
+            }
+          },
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {              
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "description": "Value of document element.",
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "doc_id": {
+                      "$ref": "#/components/schemas/doc_id"                
+                    },
+                    "type": {
+                      "$ref": "#/components/schemas/element_type"
+                    },
+                    "index": {
+                      "$ref": "#/components/schemas/element_index"
+                    },
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "doc_id": { 
+        "type": "string",
+        "description": "Unique identifier for the document.",
+      },
+      "element_type": {
+        "type": "string",
+        "description": "Type of document element.",
+        "enum": ["title", "abstract", "outline", "heading",
+                 "subheading", "text", "image" ],
+      },
+      "element_index": {
+        "type": "integer",
+        "description": "Index of doccument element.",
+      }
+    }
+  }
+}
+
+
+
+
+

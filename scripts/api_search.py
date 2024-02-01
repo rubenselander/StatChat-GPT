@@ -105,16 +105,16 @@ def get_variables(table_code: str) -> dict:
     return variables
 
 
-{
-    "text": [
-        "Life expectancy by age, sex and educational attainment level",
-        "Purchasing power adjusted GDP per capita",
-    ],
-    "code": ["DEMO_MLEXPECEDU", "SDG_10_10"],
-    "start_date": [[2007], [2000]],
-    "end_date": [[2017], [2022]],
-    "score": [0.5980391502380371, 0.592635989189148],
-}
+# {
+#     "text": [
+#         "Life expectancy by age, sex and educational attainment level",
+#         "Purchasing power adjusted GDP per capita",
+#     ],
+#     "code": ["DEMO_MLEXPECEDU", "SDG_10_10"],
+#     "start_date": [[2007], [2000]],
+#     "end_date": [[2017], [2022]],
+#     "score": [0.5980391502380371, 0.592635989189148],
+# }
 
 
 def format_search_results(search_results: dict, include_score: bool = False) -> dict:

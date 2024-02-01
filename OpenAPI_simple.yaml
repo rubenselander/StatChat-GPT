@@ -71,7 +71,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/TableVariables'
 
-  /get_data:
+  /get_table_data:
     post:
       operationId: getData
       summary: Get Data for Table

@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
-from scripts.api_search import search_eurostat
+from scripts.api_search import search_eurostat, get_variables
+from scripts.data_retriever import get_data
 
 app = Flask(__name__)
 
@@ -7,16 +8,6 @@ app = Flask(__name__)
 @app.route("/privacy")
 def index():
     return render_template("privacy.html")
-
-
-def get_query_schema(dataset_code: str) -> dict:
-    """Gets the query schema for a given dataset."""
-    return {}
-
-
-def get_data(dataset_code: str, query: dict, response_format: str = "json") -> dict:
-    """Gets the data from a table based on the given query."""
-    return {}
 
 
 # post parameters:
@@ -42,6 +33,8 @@ def get_data(dataset_code: str, query: dict, response_format: str = "json") -> d
 #          }
 #     ]
 # }
+
+
 @app.route("/search_for_tables", methods=["POST"])
 def search():
     search_string = request.form["user_question"]
@@ -58,10 +51,11 @@ def search():
 # Returns: a JSON object containing the query schema.
 # Notes: the query schema is used to format the parameters for the get_data endpoint.
 # The table_code parameter is the same as the "code" field in the search results.
-@app.route("/get_query_instructions", methods=["POST"])
+@app.route("/get_table_variables", methods=["POST"])
 def get_schema():
     code = request.form["table_code"]
-    return jsonify(get_query_schema(code))
+    variables = get_variables(code)
+    return jsonify(variables)
 
 
 # post parameters:
@@ -71,8 +65,8 @@ def get_schema():
 # Returns: a JSON object containing the data for the table.
 # Notes: the table_code parameter is the same as the "code" field in the search results.
 # The query parameter is a JSON object that contains the parameters for the query. The query schema should be constructed using the results from get_query_instructions endpoint.
-@app.route("/get_data", methods=["POST"])
-def get_data():
+@app.route("/get_table_data", methods=["POST"])
+def get_table_data():
     dataset_code = request.form["table_code"]
     query = request.form["query"]
     return jsonify(get_data(dataset_code, query))

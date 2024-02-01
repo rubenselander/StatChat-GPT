@@ -116,13 +116,20 @@ If the user wants to know the GDP, expenditure and volume indices for Sweden and
 {
     "table_code": "table123",
     "query": {
-        "freq": ["A"],
         "na_item": ["EXP_PPS_EU27_2020_HAB", "VI_PPS_EU27_2020_HAB"],
         "unit": ["PC"],
         "geo": ["SE", "FI"],
-        "time": ["*"],
         "ppp_cat": ["GDP"]
     }
 }
 
 Note that by using "*" for the time variable we are telling the api to retrieve all values for that variable. This is the same as not specifying the time variable at all. The same goes for the other variables. If we want to retrieve all values for all variables we can simply not specify the query at all. The api will then assume that we want all values for all variables.
+
+https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/sdg_10_10?format=JSON&time=2000&time=2001&time=2002&time=2003&geo=FI&geo=SE&na_item=EXP_PPS_EU27_2020_HAB&na_item=VI_PPS_EU27_2020_HAB&ppp_cat=GDP&lang=en
+
+
+https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/sdg_10_10?format=JSON&geo=FI&geo=SE&na_item=EXP_PPS_EU27_2020_HAB&na_item=VI_PPS_EU27_2020_HAB&lang=en
+
+
+
+https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/hsw_mi03?format=JSON&time=2008&time=2009&time=2010&unit=NR&unit=RT_SINC&unit=PC&severity=FAT&sex=T&sex=M&age=Y_LT18&age=Y25-54&age=Y_GE65&age=UNK&lang=en

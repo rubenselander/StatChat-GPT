@@ -76,10 +76,9 @@ paths:
       operationId: getData
       summary: Get Data for Table
       description: >
-        Gets the data for a table in Eurostat based on the query parameters. 
-        The query is a JSON object where keys are variable IDs/codes as provided by 
-        the `get_table_variables` endpoint. Each key maps to a list of value codes/IDs 
-        for the respective variable. Use '*' to retrieve all values for a variable.
+        Retrieves table data based on query parameters as JSON. The query keys 
+        correspond to variable IDs from `get_table_variables`. The response is 
+        a CSV string with column headers as variables.
       requestBody:
         required: true
         content:
@@ -95,7 +94,8 @@ paths:
                   description: >
                     JSON object containing parameters for the query. 
                     The keys are variable IDs/codes corresponding to those provided 
-                    by the `get_table_variables` endpoint.
+                    by the `get_table_variables` endpoint. For non specified variables, 
+                    all values are returned.
                   additionalProperties:
                     type: array
                     items:

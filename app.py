@@ -61,10 +61,10 @@ def get_schema():
 # post parameters:
 # table_code: string. Required.
 # query: JSON object. Required.
-# Description: gets the data for a table in Eurostat. The query parameter is a JSON object that contains the parameters for the query. The query schema is used to format the query parameters.
+# Description: gets the data for a table in Eurostat. The query parameter is a JSON object that contains the parameters for the query.
 # Returns: a JSON object containing the data for the table.
 # Notes: the table_code parameter is the same as the "code" field in the search results.
-# The query parameter is a JSON object that contains the parameters for the query. The query schema should be constructed using the results from get_query_instructions endpoint.
+# The query parameter is a JSON object that contains the parameters for the query.
 @app.route("/get_table_data", methods=["POST"])
 def get_table_data():
     dataset_code = request.form["table_code"]
@@ -74,25 +74,3 @@ def get_table_data():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-# @app.route("/ask", methods=["POST"])
-# def ask():
-#     """Handles incoming user questions and returns a JSON response."""
-#     question = request.form["question"]
-
-#     print(question)
-
-#     try:
-#         answer_dict = get_answer(question)
-#         answer = answer_dict["answer"]
-#         title = answer_dict["title"]
-#         url = answer_dict["url"]
-#         source = answer_dict["source"]
-
-#         # Use HTML tags for formatting
-#         response = f"{answer} <br><br><b>Källa:</b> {source} <br><b>Tabell:</b> {title} <br><b>Länk till tabellen:</b> <a href='{url}'>{url}</a>"
-#         return jsonify({"response": response})
-#     except Exception as e:
-#         print(e)
-#         return jsonify({"response": "Något gick fel. Försök igen."})

@@ -43,55 +43,6 @@ def search_tables(search_string: str, k: int = 10):
     return results
 
 
-# def rerank_tables(query: str, search_results: dict, k: int = 10):
-#     rerank_docs = co.rerank(
-#         query=query,
-#         documents=search_results,
-#         top_n=k,
-#         model="rerank-multilingual-v2.0",
-#     )
-#     return rerank_docs
-
-
-# def get_rerank_docs(results: list):
-#     """Get the documents to be used for the rerank operation."""
-#     docs = []
-#     for table in results:
-#         time_range_text = await get_time_range_text(table)
-#         columns = f'\nColumns:{table["columns"]}\n'
-#         docs.append(
-#             {
-#                 "text": f"""{table["title"]}{columns}{time_range_text}""",
-#                 "index": results.index(table),
-#             }
-#         )
-#     return docs
-
-
-# def process_search_results(search_string, results: dict, k: int):
-#     """Processes and rerank the results of the search operation."""
-#     rerank_docs = get_rerank_docs(results)
-
-#     reranked_results = co.rerank(
-#         query=search_string,
-#         documents=rerank_docs,
-#         top_n=k,
-#         model="rerank-multilingual-v2.0",
-#     )
-
-#     reranked_results = [
-#         {"text": doc.document, "score": doc.relevance_score, "index": doc.index}
-#         for doc in reranked_results.results
-#     ]
-
-#     new_results = []
-#     for doc in reranked_results:
-#         results[doc["index"]]["score"] = doc["score"]
-#         new_results.append(results[doc["index"]])
-
-#     return new_results
-
-
 def get_variables(table_code: str) -> dict:
     """Gets the variables for a given table."""
     # select "variables" where "code" == 'HSW_MI03'
@@ -103,18 +54,6 @@ def get_variables(table_code: str) -> dict:
     if variables and isinstance(variables, list) and len(variables) == 1:
         variables = variables[0]
     return variables
-
-
-# {
-#     "text": [
-#         "Life expectancy by age, sex and educational attainment level",
-#         "Purchasing power adjusted GDP per capita",
-#     ],
-#     "code": ["DEMO_MLEXPECEDU", "SDG_10_10"],
-#     "start_date": [[2007], [2000]],
-#     "end_date": [[2017], [2022]],
-#     "score": [0.5980391502380371, 0.592635989189148],
-# }
 
 
 def format_search_results(search_results: dict, include_score: bool = False) -> dict:
@@ -149,7 +88,7 @@ def search_eurostat(search_string: str, year: int = None, k=10) -> dict:
     return formatted_results
 
 
-def test():
+def test_search():
     search_string = "Does life expectancy in the EU correlate with GDP per capita?"
     search_results = search_eurostat(search_string, k=2)
     print(f"type: {type(search_results)}")
@@ -170,24 +109,6 @@ def test_variables():
         json.dump(variables, f, indent=4, ensure_ascii=False)
 
 
-if __name__ == "__main__":
-    test()
-    test_variables()
-
-
-# def __main__():
-#     search_string = "Har det blivit vanligare med tidiga skilsmässor?"
-#     search_string = "Vad tjänar en polis i snitt per månad?"
-#     search_string = "Hur mycket spenderar en svensk man årligen på mat i genomsnitt?"
-#     search_string = "Hur många biologilärare fanns det i gymnasieskolan år 2022?"
-#     # search_string = "Hur förändrades antalet religiösa friskolor mellan 2000 och 2010?"
-#     start_time = time.time()
-#     results = asyncio.run(api_search(search_string, 10, 40))
-#     # print(json.dumps(results["search_results"], indent=4, ensure_ascii=False))
-#     # print(json.dumps(results["url_info_dict"], indent=4, ensure_ascii=False))
-#     print_title_and_score(results)
-#     print(f"Time taken: {round(time.time() - start_time, 2)} seconds")
-
-
 # if __name__ == "__main__":
-#     __main__()
+#     test()
+#     test_variables()

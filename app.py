@@ -12,29 +12,7 @@ def index():
 
 # post parameters:
 # user_question: string. Required.
-# year: int. Optional.
-# Description: searches for tables in Eurostat that match the user's question. If specified, the year parameter will filter the results to only include tables that contain data for that year.
-# Returns: a JSON object containing the search results in the following format:
-# {
-#     "results": [
-#         {
-#             "code": "table_code1",
-#             "title": "table_title1",
-#             "source": "table_source1",
-#             "date_start": <int>, # start year of the table data
-#             "date_end": <int>, # end year of the table data
-#             "variables": {
-#                 "variable1_id": {"text": "variable1_text", "values": {"value1_id": "value1_text", "value2_id": "value2_text", ...}},
-#                "variable2_id": {"text": "variable2_text", "values": {"value1_id": "value1_text", "value2_id": "value2_text", ...}},
-#                ...
-#          },
-#          {
-#             "code": "table_code2"...
-#          }
-#     ]
-# }
-
-
+# Description: searches for tables in Eurostat that match the user's question.
 @app.route("/search_for_tables", methods=["POST"])
 def search():
     search_string = request.form["user_question"]

@@ -7,7 +7,6 @@ from pyjstat import pyjstat
 from io import StringIO
 
 
-# https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/sdg_10_10?format=JSON&geo=FI&geo=SE&na_item=EXP_PPS_EU27_2020_HAB&na_item=VI_PPS_EU27_2020_HAB&lang=en
 BASE_URL = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/{TABLE_CODE}?format=JSON{SELECTIONS}&lang=en"
 
 

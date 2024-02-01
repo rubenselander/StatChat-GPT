@@ -33,11 +33,7 @@ Deeplake is a open source vector store. We are going to use a local flask based 
 
 
 
-This is where our GPT comes in. It is not only able to use the Eurostat API but also utilize DeepLake to find the most relevant datasets with a single natural language query.
-Once it knows which table and variables it needs it can then perform an api call to eurostat and retrieve the relevant data.
 
 
 
 
-
-. This is especially true if you are not familiar with the data or the data structure. This is where our GPT comes in. It will help you find the data you need by asking you questions and using your answers to find the data you need. It will then present the data to you in a way that is easy to understand and use.

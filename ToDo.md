@@ -5,6 +5,10 @@
 (*See `scripts/vector_store_init.py`*)
 - Write a script for uploading the scraped data to deeplake 
 (*See `scripts/vector_store_init.py`*)
+- Implement the local flask api (functions for searching and retrieving data). See steps in "Local API".
+(*See `api_search.py` and `data_retriever.py`*)
+- Define the OpenAPI spec for the local api. 
+(*See `openapi.yaml`*)
 
 
 # LOCAL API
@@ -21,8 +25,6 @@
 
 
 # TODO
-- Implement the local flask api (functions for searching and retrieving data). See steps in "Local API".
-- Define the OpenAPI spec for the local api. 
 - Write the instructions for our GPT to use the local api to find and retrieve data from Eurostat API (very simple just need to get the other parts done first)
 - DEMO IS DONE AND SHOULD NOW BE READY TO GO!
 

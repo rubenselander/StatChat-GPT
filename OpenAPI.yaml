@@ -8,19 +8,6 @@ servers:
   - url: https://statchat.onrender.com
 
 paths:
-  /privacy:
-    get:
-      operationId: getPrivacyPolicy
-      summary: Privacy Policy
-      description: Returns the privacy policy page.
-      responses:
-        200:
-          description: Privacy policy page
-          content:
-            text/html:
-              schema:
-                type: string
-
   /search_for_tables:
     post:
       operationId: searchForTables
@@ -33,11 +20,11 @@ paths:
             schema:
               type: object
               properties:
-                user_question:
+                query:
                   type: string
                   description: The question the user is asking.
               required:
-                - user_question
+                - query
       responses:
         200:
           description: Search results

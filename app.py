@@ -1,3 +1,4 @@
+import json
 from flask import Flask, render_template, request, jsonify
 from scripts.api_search import search_eurostat, get_variables
 from scripts.data_retriever import get_data
@@ -16,16 +17,13 @@ def index():
 @app.route("/search_for_tables", methods=["POST"])
 def search():
     data = request.get_json()
-    search_string = data["user_question"]
+    print(json.dumps(data, indent=4, ensure_ascii=False))
+    search_string = data["query"]
     # get the optional "year" parameter if it exists
     # year = request.form.get("year", None)
 
     search_results = search_eurostat(search_string)
     return jsonify(search_results)
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
 
 
 # post parameters:
@@ -55,3 +53,7 @@ def get_table_data():
     dataset_code = data["table_code"]
     query = data["query"]
     return jsonify(get_data(dataset_code, query))
+
+
+if __name__ == "__main__":
+    app.run(debug=True)

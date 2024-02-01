@@ -7,3 +7,10 @@ StatChat is an innovative GPT-based project designed to showcase new ways we int
 - **Deep Memory**: Utilizes DeepLake's Deep Memory feature for enhanced search performance.
 - **Eurostat Integration**: Access to a vast array of statistical data from the Eurostat database.
 - **Flask API**: A local API to bridge GPT interactions with DeepLake and Eurostat.
+
+
+## Code Structure
+
+<div style="text-align: center;">
+  <img src="StatChat.png" alt="How it works" style="max-width: 75%; height: auto; display: block; margin: 0 auto;">
+</div>

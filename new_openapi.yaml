@@ -1,0 +1,96 @@
+openapi: 3.0.0
+info:
+  title: Eurostat Data API
+  description: This API provides access to Eurostat tables and data based on user queries.
+  version: 1.0.0
+servers:
+  - url: https://statchat.onrender.com
+    description: Main API server for custom Eurostat operations.
+
+paths:
+  /searchForTables:
+    get:
+      operationId: searchForTables
+      summary: Searches for tables in Eurostat that match the user's query.
+      parameters:
+        - name: search_query
+          in: query
+          required: true
+          description: The search query to find matching tables.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of dicts containing the search results.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    code:
+                      type: string
+                    text:
+                      type: string
+                    date_start:
+                      type: integer
+                    date_end:
+                      type: integer
+
+  /getVariables/{code}:
+    get:
+      operationId: getVariables
+      summary: Gets the variables for a given table.
+      parameters:
+        - name: code
+          in: path
+          required: true
+          description: The code of the table.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A dict containing the variables for the table.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                  properties:
+                    text:
+                      type: string
+                    values:
+                      type: object
+                      additionalProperties:
+                        type: string
+
+  /getData/{code}:
+    post:
+      operationId: getData
+      summary: Gets the data for a given table and specified query.
+      parameters:
+        - name: code
+          in: path
+          required: true
+          description: The code of the table as provided by the search_for_tables function.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties:
+                type: array
+                items:
+                  type: string
+      responses:
+        '200':
+          description: A CSV string containing the data for the table.
+          content:
+            text/csv:
+              schema:
+                type: string

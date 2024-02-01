@@ -51,20 +51,31 @@ paths:
             type: string
       responses:
         '200':
-          description: A dict containing the variables for the table.
+          description: An array of objects, each representing a variable with its details and values.
           content:
             application/json:
               schema:
-                type: object
-                additionalProperties:
+                type: array
+                items:
                   type: object
                   properties:
+                    code:
+                      type: string
                     text:
                       type: string
                     values:
-                      type: object
-                      additionalProperties:
-                        type: string
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          code:
+                            type: string
+                          text:
+                            type: string
+                  required:
+                    - code
+                    - text
+                    - values
 
   /getData/{code}:
     post:
@@ -74,7 +85,7 @@ paths:
         - name: code
           in: path
           required: true
-          description: The code of the table as provided by the search_for_tables function.
+          description: The code of the table as provided by the searchForTables function.
           schema:
             type: string
       requestBody:
@@ -83,10 +94,13 @@ paths:
           application/json:
             schema:
               type: object
-              additionalProperties:
-                type: array
-                items:
-                  type: string
+              properties:
+                queryParameters:
+                  type: object
+                  additionalProperties:
+                    type: array
+                    items:
+                      type: string
       responses:
         '200':
           description: A CSV string containing the data for the table.

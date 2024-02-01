@@ -43,7 +43,20 @@ def search_tables(search_string: str, k: int = 10):
     return results
 
 
-def get_variables(table_code: str) -> dict:
+def format_variable(variable: dict, variable_code: str) -> dict:
+    """Formats a variable from the vector store to the format expected by the frontend."""
+    formatted_variable = {"code": variable_code, "text": variable["text"], "values": []}
+    for value_code, value_text in variable["values"].items():
+        formatted_variable["values"].append(
+            {
+                "code": value_code,
+                "text": value_text,
+            }
+        )
+    return formatted_variable
+
+
+def get_variables(table_code: str) -> list[dict]:
     """Gets the variables for a given table."""
     # select "variables" where "code" == 'HSW_MI03'
     variables = vector_store.search(
@@ -53,7 +66,11 @@ def get_variables(table_code: str) -> dict:
     variables = variables["variables"]
     if variables and isinstance(variables, list) and len(variables) == 1:
         variables = variables[0]
-    return variables
+
+    formatted_variables = []
+    for variable_code, variable in variables.items():
+        formatted_variables.append(format_variable(variable, variable_code))
+    return formatted_variables
 
 
 def format_search_results(search_results: dict, include_score: bool = False) -> dict:

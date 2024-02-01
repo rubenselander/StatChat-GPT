@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, Response, render_template
-from scripts.api_search import search_eurostat
-from scripts.api_search import get_variables, get_data
+from scripts.api_search import search_eurostat, get_variables
+from scripts.data_retriever import get_data
 import json
 
 app = Flask(__name__)
@@ -113,24 +113,24 @@ if __name__ == "__main__":
 #     code: string. Required. The code of the table as provided by the search_for_tables function.
 
 #     Returns:
-#     A dict containing the variables for the table in the following format:
-#     {
-#         "var_code_1": {
-#             "text": "Variable description",
-#             "values": {
-#                 "value_code_1": "Value description",
-#                 "value_code_2": "Value description",
-#             }
-#         },
-#         "var_code_2": {
-#             "text": "Variable description",
-#             "values": {
-#                 "value_code_1": "Value description",
-#                 "value_code_2": "Value description",
-#             }
-#         },
-#         ...
-#     }
+# A dict containing the variables for the table in the following format:
+# {
+#     "var_code_1": {
+#         "text": "Variable description",
+#         "values": {
+#             "value_code_1": "Value description",
+#             "value_code_2": "Value description",
+#         }
+#     },
+#     "var_code_2": {
+#         "text": "Variable description",
+#         "values": {
+#             "value_code_1": "Value description",
+#             "value_code_2": "Value description",
+#         }
+#     },
+#     ...
+# }
 #     """
 #     return local_get_variables(code)
 

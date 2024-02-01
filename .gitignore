@@ -183,3 +183,4 @@ templates/privacy.html
 privacy.html
 privacy
 *.html
+templates/*.html

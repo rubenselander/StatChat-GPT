@@ -8,7 +8,7 @@ import os
 
 co = cohere.Client(os.environ["COHERE_API_KEY"])
 ORG_NAME = "rubenselander"  # Organization name on activeloop hub
-VECTOR_STORE_NAME = "eurostat"  # Name of vector store on activeloop hub
+VECTOR_STORE_NAME = "eurostat_cohere"  # Name of vector store on activeloop hub
 # TOKEN = os.environ["ACTIVATELOOP_TOKEN"]
 
 
@@ -18,9 +18,9 @@ vector_store = VectorStore(
 )
 
 
-# Potential filter function for vector_store.search
-def filter_tokens_fn(x):
-    return x["metadata"].data()["value"]["tokens"] < 1000
+# # Potential filter function for vector_store.search
+# def filter_tokens_fn(x):
+#     return x["metadata"].data()["value"]["tokens"] < 1000
 
 
 def cohere_embedding_function(texts, model="embed-multilingual-v3.0"):
@@ -114,16 +114,20 @@ def test_search():
         json.dump(search_results, f, indent=4, ensure_ascii=False)
 
 
-def test_variables():
-    table_code = "HSW_MI03"
-    variables = get_variables(table_code)
-    print(f"variables: {variables}")
-    if isinstance(variables, str):
-        variables = json.loads(variables)
+test_search()
+# https://ec.europa.eu/eurostat/databrowser/view/lfsa_upgadl
 
-    # save to variables_test.json
-    with open("variables_test.json", "w", encoding="utf-8") as f:
-        json.dump(variables, f, indent=4, ensure_ascii=False)
+
+# def test_variables():
+#     table_code = "HSW_MI03"
+#     variables = get_variables(table_code)
+#     print(f"variables: {variables}")
+#     if isinstance(variables, str):
+#         variables = json.loads(variables)
+
+#     # save to variables_test.json
+#     with open("variables_test.json", "w", encoding="utf-8") as f:
+#         json.dump(variables, f, indent=4, ensure_ascii=False)
 
 
 # if __name__ == "__main__":
